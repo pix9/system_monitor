@@ -8,3 +8,5 @@ System state logging and monitoring scripts for Linux / Unix Based systems.
 * Parameterize script.
 * Add Setup / Install script to place it under suitable palce on Operating system.
 * Add distribution specific environments.
+* Add cleanup function to remove old files.
+
