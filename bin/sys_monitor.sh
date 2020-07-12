@@ -4,19 +4,23 @@
 # Date :- 11th July 2020
 # Purpose :- To Generate and configure system folders and path for installing scripts and directories to store logs.
 # Milestone :- None
-# Last Modified :- 11th July 2020
+# Last Modified :- 12th July 2020
 # Reason To Modify :- Creation.
 # Notes :-
 
 ### Variables.
 TODAY=$(date +"%Y-%m-%d")
-LOG_DIR=/home/SYSTEM_MONITOR/${TODAY}
+LOG_DIR="/home/system_monitor/data"
 TS=$(date +"%H-%M")
-MEM_FILE=${LOG_DIR}/${TS}-mem
-PROC_FILE=${LOG_DIR}/${TS}-proc
-TOP_FILE=${LOG_DIR}/${TS}-top
-IOSTAT_FILE=${LOG_DIR}/${TS}-iostat
-NET_FILE=${LOG_DIR}/${TS}-net
+MEM_FILE=${LOG_DIR}/${TODAY}/${TS}-mem
+PROC_FILE=${LOG_DIR}/${TODAY}/${TS}-proc
+TOP_FILE=${LOG_DIR}/${TODAY}/${TS}-top
+IOSTAT_FILE=${LOG_DIR}/${TODAY}/${TS}-iostat
+NET_FILE=${LOG_DIR}/${TODAY}/${TS}-net
+
+### Variables for Cleanup Functions.
+BACKLOG=14 ### Keep backlogs for previous for last 14 days (2 weeks).
+
 
 ### misc Variables for formatting.
 SMALL_LINE="------------------------------------------------------------------------------"
@@ -25,8 +29,8 @@ BIG_LINE="######################################################################
 
 ### Functions.
 CREATE_LOG_DIR(){
-	if [ ! -d "${LOG_DIR}" ];then
-		mkdir -p ${LOG_DIR}
+	if [ ! -d "${LOG_DIR}/${TODAY}" ];then
+		mkdir -p ${LOG_DIR}/${TODAY}
 	fi
 }
 
@@ -51,6 +55,10 @@ IOSTAT(){
 
 NET(){
 	ss -aenpO
+}
+
+CLEANUP(){
+	find ${LOG_DIR}	-type d -mtime +${BACKLOG} -exec rm -rf {} \;
 }
 
 MAIN(){
