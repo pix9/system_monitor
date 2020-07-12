@@ -2,7 +2,7 @@
 System state logging and monitoring scripts for Linux / Unix Based systems.
 
 ## How To ?
-	As of now have added base basic working script expecting to run it as every minute or two minutes cron.
+As of now have added base basic working script expecting to run it as every minute or two minutes cron.
 
 ## TO DO (ROAD MAP)
 * Parameterize script.
